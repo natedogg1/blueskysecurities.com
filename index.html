@@ -31,8 +31,49 @@
     <h1>Blue Sky Securities</h1>
     <p>Providing market data dashboards and portfolio tracking. Information provided is not financial advice. Coming Soon!</p>
   </div>
+
+
+  
+<div class="tickers">
+  <div>SPY: <span id="spy"></span></div>
+  <div>AAPL: <span id="aapl"></span></div>
+  <div>BTC: <span id="btc"></span></div>
+  <div>ETH: <span id="eth"></span></div>
+  <div>Gold: <span id="gold"></span></div>
+</div>
+
+<script>
+const API = "https://blueskysecurities-api.onrender.com";
+
+async function refreshPrices() {
+  const res = await fetch(`${API}/prices`);
+  const data = await res.json();
+
+  document.getElementById("spy").textContent =
+    data.stocks.SPY.quote.latestPrice.toFixed(2);
+
+  document.getElementById("aapl").textContent =
+    data.stocks.AAPL.quote.latestPrice.toFixed(2);
+
+  document.getElementById("btc").textContent =
+    data.crypto.bitcoin.usd.toLocaleString();
+
+  document.getElementById("eth").textContent =
+    data.crypto.ethereum.usd.toLocaleString();
+
+  document.getElementById("gold").textContent =
+    data.metals.rates.XAU.toFixed(2);
+}
+
+refreshPrices();
+setInterval(refreshPrices, 10000);
+</script>
+
+  
+  
 </body>
 </html>
+
 
 
 
